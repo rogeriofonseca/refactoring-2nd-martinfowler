@@ -1,14 +1,13 @@
 const plays = require('./plays')
 const invoices = require('./invoices')
 const playFor = require('./playFor')
+const format = require('./format')
 
 function statement (invoice, plays) {
   let totalAmount = 0;
   let volumeCredits = 0;
   let result = `Statement for ${invoice.customer}\n`;
-  const format = new Intl.NumberFormat("en-US",
-                        { style: "currency", currency: "USD",
-                          minimumFractionDigits: 2 }).format;
+
   for (let perf of invoice.performances) {
     let thisAmount = amountFor(perf, playFor(perf));
     volumeCredits += volumeCreditsFor(perf);
