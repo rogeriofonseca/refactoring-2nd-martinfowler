@@ -1,7 +1,7 @@
-const plays = require('./plays')
-const invoices = require('./invoices')
+const plays = require('./resources/plays')
+const invoices = require('./resources/invoices')
 const playFor = require('./playFor')
-const format = require('./format')
+const usd = require('./usd')
 
 function statement (invoice, plays) {
   let totalAmount = 0;
@@ -13,10 +13,10 @@ function statement (invoice, plays) {
     volumeCredits += volumeCreditsFor(perf);
 
     // print line for this order
-    result += `  ${playFor(perf).name}: ${format(thisAmount/100)} (${perf.audience} seats)\n`;
+    result += `  ${playFor(perf).name}: ${usd(thisAmount)} (${perf.audience} seats)\n`;
     totalAmount += thisAmount;
   }
-  result += `Amount owed is ${format(totalAmount/100)}\n`;
+  result += `Amount owed is ${usd(totalAmount/100)}\n`;
   result += `You earned ${volumeCredits} credits\n`;
   return result;
 }
